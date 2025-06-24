@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-// import Board from './Board.jsx';
+import Board from './Board.jsx';
 // import './BoardList.css';
 
 const BoardList = ({ boards, ...Board, ... }) => {
@@ -20,6 +20,7 @@ const BoardList = ({ boards, ...Board, ... }) => {
   };
   return <div>{getBoardListJSX(boards)}</div>;
 };
+
 
 BoardList.propTypes = {
   boards: PropTypes.arrayOf(
