@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 // import './Board.css';
 
 const Board = ({ id, title, owner, cards }) => {
-
   return (
-    <>
+    <div>
       <p>{title}</p>
       <p>{owner}</p>
-    </>
+    </div>
   );
 };
 
