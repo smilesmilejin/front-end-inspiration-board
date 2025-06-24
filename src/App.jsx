@@ -7,63 +7,63 @@ import axios from 'axios';
 import NewBoardForm from './components/NewBoardForm';
 import NewCardForm from './components/NewCardForm';
 
-const kBoardData = [
-    {
-        "cards": [],
-        "id": 6,
-        "owner": "      s",
-        "title": "     space"
-    },
-    {
-        "cards": [
-            {
-                "board_id": 3,
-                "id": 5,
-                "likes_count": 0,
-                "message": "very good"
-            }
-        ],
-        "id": 3,
-        "owner": "Jin",
-        "title": "Read a book"
-    },
-    {
-        "cards": [],
-        "id": 4,
-        "owner": "Jin",
-        "title": "Read a book"
-    },
-    {
-        "cards": [
-            {
-                "board_id": 2,
-                "id": 4,
-                "likes_count": 3,
-                "message": "very good"
-            }
-        ],
-        "id": 2,
-        "owner": "Smile",
-        "title": "Walk"
-    },
-    {
-        "cards": [],
-        "id": 7,
-        "owner": "s",
-        "title": "a"
-    },
-    {
-        "cards": [],
-        "id": 5,
-        "owner": "a",
-        "title": "space before"
-    }
-];
+// const kBoardData = [
+//     {
+//         "cards": [],
+//         "id": 6,
+//         "owner": "      s",
+//         "title": "     space"
+//     },
+//     {
+//         "cards": [
+//             {
+//                 "board_id": 3,
+//                 "id": 5,
+//                 "likes_count": 0,
+//                 "message": "very good"
+//             }
+//         ],
+//         "id": 3,
+//         "owner": "Jin",
+//         "title": "Read a book"
+//     },
+//     {
+//         "cards": [],
+//         "id": 4,
+//         "owner": "Jin",
+//         "title": "Read a book"
+//     },
+//     {
+//         "cards": [
+//             {
+//                 "board_id": 2,
+//                 "id": 4,
+//                 "likes_count": 3,
+//                 "message": "very good"
+//             }
+//         ],
+//         "id": 2,
+//         "owner": "Smile",
+//         "title": "Walk"
+//     },
+//     {
+//         "cards": [],
+//         "id": 7,
+//         "owner": "s",
+//         "title": "a"
+//     },
+//     {
+//         "cards": [],
+//         "id": 5,
+//         "owner": "a",
+//         "title": "space before"
+//     }
+// ];
 
 
 
 
-// // get backendUrl from .evn file
+// get backendUrl from .env file
 const kBaseUrl = import.meta.env.VITE_APP_BACKEND_URL;
 console.log("kBaseUrl:", kBaseUrl);
 
@@ -113,18 +113,17 @@ const board_id = 3;
 function App() {
   // const [count, setCount] = useState(0)
   const [boardData, setBoardData] = useState([]);
-
   // const [boardData, setBoardData] = useState(kBoardData);
 
 
-    const getAllBoards = () => {
-      return getAllBoardssApi()
-        .then(boards => setBoardData(boards));
-    };
+  const getAllBoards = () => {
+    return getAllBoardssApi()
+      .then(boards => setBoardData(boards));
+  };
 
 
   useEffect (()=> {
-    getAllBoards(); // function that fetches all tasks (from calling an API)
+    getAllBoards(); 
 
     console.log('##################')
   }, []); // Empty dependency array: run only once on component mount
@@ -154,6 +153,7 @@ function App() {
                 ...board,
                 cards: [...board.cards, newCard]  // add the new card
               })
+              
               // create new board object with updated cards
               return {
                 ...board,
