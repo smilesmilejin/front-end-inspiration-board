@@ -49,20 +49,6 @@ const NewCardForm = ({onPostCard}) => {
         // if 1 <= 1 length <= 40, error = false
         const trimmedLength = inputValue.trim().length;
 
-        // if (trimmedLength >= 1 && trimmedLength <= 40) {
-        //     setErrors((prev) => ({
-        //         ...prev,
-        //         [inputName]: false,  // no error
-        //     }));
-        // // } else if (trimmedLength < 1 || trimmedLength > 40) {
-        // } else {
-        //     setErrors((prev) => ({
-        //         ...prev,
-        //         [inputName]: true,  // error present
-        //     }));
-        // };
-
-
         if (trimmedLength === 0) {
             setErrors((prev) => ({
                 ...prev,
@@ -92,12 +78,6 @@ const NewCardForm = ({onPostCard}) => {
                     value={formData[inputName]}
                     placeholder={inputName}
                 />
-                {/* {errors[inputName] && (
-                    <p className="error-text">
-                        {`${inputName} can not be empty or more than 40 characters `}
-                        // {`${inputName.charAt(0).toUpperCase() + inputName.slice(1)} is required`}
-                    </p>
-                )} */}
 
                 {errors[inputName] && (
                     <p>{errors[inputName]}</p>
