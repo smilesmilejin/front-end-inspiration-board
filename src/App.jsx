@@ -7,62 +7,6 @@ import axios from 'axios';
 import NewBoardForm from './components/NewBoardForm';
 import NewCardForm from './components/NewCardForm';
 
-// const kBoardData = [
-//     {
-//         "cards": [],
-//         "id": 6,
-//         "owner": "      s",
-//         "title": "     space"
-//     },
-//     {
-//         "cards": [
-//             {
-//                 "board_id": 3,
-//                 "id": 5,
-//                 "likes_count": 0,
-//                 "message": "very good"
-//             }
-//         ],
-//         "id": 3,
-//         "owner": "Jin",
-//         "title": "Read a book"
-//     },
-//     {
-//         "cards": [],
-//         "id": 4,
-//         "owner": "Jin",
-//         "title": "Read a book"
-//     },
-//     {
-//         "cards": [
-//             {
-//                 "board_id": 2,
-//                 "id": 4,
-//                 "likes_count": 3,
-//                 "message": "very good"
-//             }
-//         ],
-//         "id": 2,
-//         "owner": "Smile",
-//         "title": "Walk"
-//     },
-//     {
-//         "cards": [],
-//         "id": 7,
-//         "owner": "s",
-//         "title": "a"
-//     },
-//     {
-//         "cards": [],
-//         "id": 5,
-//         "owner": "a",
-//         "title": "space before"
-//     }
-// ];
-
-
-
-
 // get backendUrl from .env file
 const kBaseUrl = import.meta.env.VITE_APP_BACKEND_URL;
 console.log("kBaseUrl:", kBaseUrl);
@@ -175,26 +119,6 @@ function App() {
     <>
       <NewBoardForm onPostBoard={postBoard}/>
       <NewCardForm onPostCard={postCard}/>
-      {/* <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p> */}
     </>
   )
 }
