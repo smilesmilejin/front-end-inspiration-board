@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Board from './Board.jsx';
 // import './BoardList.css';
 
-const BoardList = ({ boards }) => {
+const BoardList = ({ boards, onBoardClick}) => {
   const getBoardListJSX = (boards) => {
     return boards.map((board) => {
       return (
@@ -12,6 +12,7 @@ const BoardList = ({ boards }) => {
             title={board.title}
             owner={board.owner}
             cards={board.cards}
+            onBoardClick={onBoardClick}
           />
         </div>
       );

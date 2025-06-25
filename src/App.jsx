@@ -73,6 +73,7 @@ function App() {
   const [currentBoardId, setCurrentBoardId] = useState(null);
 
   const changeCurrentBoard = (board_id) => {
+    console.log('Selected Board Id is:', board_id);
     setCurrentBoardId(board_id);
 };
 
@@ -132,11 +133,11 @@ function App() {
 
   return (
     <>
-      <Board></Board>
-      <BoardList></BoardList>
-      <CardList></CardList>
+      {/* <Board></Board>      */}
+      {/* <CardList></CardList> */}
+      <BoardList boards={boardData} onBoardClick={changeCurrentBoard}/>
       <NewBoardForm onPostBoard={postBoard}/>
-      <NewCardForm onPostCard={postCard}/>
+      {/* <NewCardForm onPostCard={postCard}/> */}
     </>
   )
 };

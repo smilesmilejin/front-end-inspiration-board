@@ -1,10 +1,13 @@
-
 import PropTypes from 'prop-types';
 // import './Board.css';
 
-const Board = ({ id, title, owner, cards }) => {
+const Board = ({ id, title, owner, onBoardClick }) => {
+  const handleClick = () => {
+    onBoardClick(id);
+  };
+
   return (
-    <div>
+    <div onClick={handleClick}>
       <p>{title}</p>
       <p>{owner}</p>
     </div>
