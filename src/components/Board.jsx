@@ -7,10 +7,10 @@ const Board = ({ id, title, owner, onBoardClick }) => {
   };
 
   return (
-    <div onClick={handleClick}>
+    <li onClick={handleClick}>
       <p>{title}</p>
       <p>{owner}</p>
-    </div>
+    </li>
   );
 };
 
