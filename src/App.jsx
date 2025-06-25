@@ -62,9 +62,16 @@ const postCardApi = (board_id, newCardData) => {
       });
 };
 
+// increase likes by one on selected card
 const likeCardApi = (cardId) => {
   return axios.patch(`${kBaseUrl}/cards/${cardId}/like`)
     .then(response => response.data)
+    .catch(error => console.log(error));
+};
+
+// deletes selected card from db
+const deleteCardApi = (cardId) => {
+  return axios.delete(`${kBaseUrl}/cards/${cardId}`)
     .catch(error => console.log(error));
 };
 
@@ -157,6 +164,20 @@ function App() {
     });
   };
 
+  const deleteCard = (cardId) => {
+    deleteCardApi(cardId).then(() => {
+      setBoardData((prevBoards) => {
+        return prevBoards.map((board) => {
+          if (board.id === currentBoardId) {
+            const updatedCards = board.cards.filter((card) => card.id !== cardId);
+            return { ...board, cards: updatedCards };
+          }
+          return board;
+        });
+      });
+    });
+  };
+
   return (
     <>
       <BoardList boards={boardData} onBoardClick={changeCurrentBoard}/>
@@ -171,7 +192,7 @@ function App() {
           onBoardClick={changeCurrentBoard}
         />
         <NewCardForm onPostCard={postCard}/>
-        <CardList cards={selectedBoard.cards || []} onLike={likeCard} />
+        <CardList cards={selectedBoard.cards || []} onLike={likeCard} onDelete={deleteCard}/>
       </>
     )}
       
