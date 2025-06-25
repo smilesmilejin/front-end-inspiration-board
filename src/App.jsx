@@ -75,14 +75,9 @@ const deleteCardApi = (cardId) => {
     .catch(error => console.log(error));
 };
 
-// testing purpose, need to think set up state for board_id
-// const board_id = 3;
-
 
 function App() {
-  // const [count, setCount] = useState(0)
   const [boardData, setBoardData] = useState([]);
-  // const [boardData, setBoardData] = useState(kBoardData);
   const [currentBoardId, setCurrentBoardId] = useState(null);
   const selectedBoard = boardData.find((board) => board.id == currentBoardId);
 
