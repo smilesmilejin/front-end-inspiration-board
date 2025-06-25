@@ -1,18 +1,20 @@
-import { useState, useEffect  } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 import axios from 'axios';
 import NewBoardForm from './components/NewBoardForm';
 import NewCardForm from './components/NewCardForm';
+import BoardList from './components/BoardList';
+import Board from './components/Board';
+import CardList from './components/CardList';
+
 
 // get backendUrl from .env file
 const kBaseUrl = import.meta.env.VITE_APP_BACKEND_URL;
 console.log("kBaseUrl:", kBaseUrl);
 
-
-const getAllBoardssApi = () => {
+// get all boards from database - receive list of objects
+const getAllBoardsApi = () => {
   return axios.get(`${kBaseUrl}/boards`) 
     .then(response => { 
       return response.data;
@@ -22,19 +24,30 @@ const getAllBoardssApi = () => {
     });
 };
 
+// get specific board from database
+const getOneBoardApi = (boardId) => {
+  return axios.get(`${kBaseUrl}/boards/${boardId}`) 
+    .then(response => { 
+      return response.data['board'];
+    })
+    .catch (error => {
+      console.log(error);
+    });
+};
 
+// post new board to the database
 const postBoardApi = (newBoardData) => {
   return axios.post(`${kBaseUrl}/boards`, newBoardData)
     .then(response => {
       console.log(response.data.board);
-      return response.data.board
+      return response.data["board"];
     })
       .catch (error => {
         console.log(error);
       });
 };
 
-
+// post new card to existing board -- to database
 const postCardApi = (board_id, newCardData) => {
   console.log("Posting card with data:", newCardData);
 
@@ -49,27 +62,48 @@ const postCardApi = (board_id, newCardData) => {
       });
 };
 
+// increase likes by one on selected card
+const likeCardApi = (cardId) => {
+  return axios.patch(`${kBaseUrl}/cards/${cardId}/like`)
+    .then(response => response.data)
+    .catch(error => console.log(error));
+};
+
+// deletes selected card from db
+const deleteCardApi = (cardId) => {
+  return axios.delete(`${kBaseUrl}/cards/${cardId}`)
+    .catch(error => console.log(error));
+};
 
 // testing purpose, need to think set up state for board_id
-const board_id = 3;
+// const board_id = 3;
 
 
 function App() {
   // const [count, setCount] = useState(0)
   const [boardData, setBoardData] = useState([]);
   // const [boardData, setBoardData] = useState(kBoardData);
+  const [currentBoardId, setCurrentBoardId] = useState(null);
+  const selectedBoard = boardData.find((board) => board.id == currentBoardId);
 
+  const changeCurrentBoard = (board_id) => {
+    console.log('Selected Board Id is:', board_id);
+    setCurrentBoardId(board_id);
+};
 
+  // getting all the boards from db and rendering them once on loading the page with UseEffect
   const getAllBoards = () => {
-    return getAllBoardssApi()
-      .then(boards => setBoardData(boards));
+    return getAllBoardsApi().then((boards) => {
+      setBoardData(boards);
+      if (boards.length > 0) {
+        setCurrentBoardId(boards[0].id);
+      }
+    });
   };
-
-
+  
   useEffect (()=> {
     getAllBoards(); 
-
-    console.log('##################')
+    console.log('I am inside the useEffect')
   }, []); // Empty dependency array: run only once on component mount
 
   const postBoard = (newBoardData) => {
@@ -81,14 +115,14 @@ function App() {
 
   const postCard = (newCardData) => {
     console.log('postCard');
-    postCardApi(board_id, newCardData)
+    postCardApi(currentBoardId, newCardData)
     .then(newCard => {
           setBoardData (prevBoards => {
           console.log('############ in PostCard, prevBoards is :');
           console.log(prevBoards);
 
           const updatedBoards = prevBoards.map (board => {
-            if (board.id === board_id) {
+            if (board.id === currentBoardId) {
               console.log('when board is matches');
               console.log(board)
 
@@ -114,13 +148,56 @@ function App() {
     });
   };
 
+  const likeCard = (cardId) => {
+    likeCardApi(cardId).then((updatedCard) => {
+      setBoardData((prevBoards) => {
+        return prevBoards.map((board) => {
+          if (board.id === currentBoardId) {
+            const updatedCards = board.cards.map((card) =>
+              card.id === cardId ? updatedCard : card
+            );
+            return { ...board, cards: updatedCards };
+          }
+          return board;
+        });
+      });
+    });
+  };
+
+  const deleteCard = (cardId) => {
+    deleteCardApi(cardId).then(() => {
+      setBoardData((prevBoards) => {
+        return prevBoards.map((board) => {
+          if (board.id === currentBoardId) {
+            const updatedCards = board.cards.filter((card) => card.id !== cardId);
+            return { ...board, cards: updatedCards };
+          }
+          return board;
+        });
+      });
+    });
+  };
 
   return (
     <>
+      <BoardList boards={boardData} onBoardClick={changeCurrentBoard}/>
       <NewBoardForm onPostBoard={postBoard}/>
-      <NewCardForm onPostCard={postCard}/>
+      {selectedBoard && (
+      <>
+        <Board
+          id={selectedBoard.id}
+          title={selectedBoard.title}
+          owner={selectedBoard.owner}
+          cards={selectedBoard.cards}
+          onBoardClick={changeCurrentBoard}
+        />
+        <NewCardForm onPostCard={postCard}/>
+        <CardList cards={selectedBoard.cards || []} onLike={likeCard} onDelete={deleteCard}/>
+      </>
+    )}
+      
     </>
   )
-}
+};
 
-export default App
+export default App;
