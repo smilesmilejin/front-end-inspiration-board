@@ -40,7 +40,7 @@ const postBoardApi = (newBoardData) => {
   return axios.post(`${kBaseUrl}/boards`, newBoardData)
     .then(response => {
       console.log(response.data.board);
-      return response.data.board["board"];
+      return response.data["board"];
     })
       .catch (error => {
         console.log(error);
@@ -102,14 +102,14 @@ function App() {
 
   const postCard = (newCardData) => {
     console.log('postCard');
-    postCardApi(board_id, newCardData)
+    postCardApi(currentBoardId, newCardData)
     .then(newCard => {
           setBoardData (prevBoards => {
           console.log('############ in PostCard, prevBoards is :');
           console.log(prevBoards);
 
           const updatedBoards = prevBoards.map (board => {
-            if (board.id === board_id) {
+            if (board.id === currentBoardId) {
               console.log('when board is matches');
               console.log(board)
 
@@ -138,7 +138,6 @@ function App() {
 
   return (
     <>
-      {/* <Board></Board>      */}
       <BoardList boards={boardData} onBoardClick={changeCurrentBoard}/>
       <NewBoardForm onPostBoard={postBoard}/>
       {selectedBoard && (
@@ -150,10 +149,11 @@ function App() {
           cards={selectedBoard.cards}
           onBoardClick={changeCurrentBoard}
         />
+        <NewCardForm onPostCard={postCard}/>
         <CardList cards={selectedBoard.cards || []} />
       </>
     )}
-      {/* <NewCardForm onPostCard={postCard}/> */}
+      
     </>
   )
 };
