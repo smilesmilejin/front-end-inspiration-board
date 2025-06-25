@@ -27,13 +27,8 @@ const NewBoardForm = ({onPostBoard}) => {
         console.log("Posting:", { title: trimmedTitle, owner: trimmedOwner });
         onPostBoard({ title: trimmedTitle, owner: trimmedOwner });
 
-        // onPostBoard(formData);
-
         setFormData(kDefaultFormState);
-
         setErrors(kErrorState);
-
-
     };
 
     const handleChange = (event) => {
@@ -71,7 +66,6 @@ const NewBoardForm = ({onPostBoard}) => {
                 />
                 {errors[inputName] && (
                     <p className="error-text">
-                        {/* {`${inputName} can not be empty`} */}
                         {`${inputName.charAt(0).toUpperCase() + inputName.slice(1)} can not be empty`}
                     </p>
                 )}
@@ -83,15 +77,12 @@ const NewBoardForm = ({onPostBoard}) => {
     return (
     <form onSubmit={handleSubmit}>
       <div>
-        {/* <label htmlFor='input-title'>Task Title: </label> */}
         {makeControlledInput('title')}
       </div>
       <div className = 'form-field'>
-        {/* <label htmlFor='input-description'>Description (Optional): </label> */}
         {makeControlledInput('owner')}
       </div>
       <div className="button-wrapper">
-        {/* <button disabled={!formData.title.trim() || !formData.owner.trim()}>Create</button> */}
         <button disabled={errors.title || errors.owner}>Create</button>
       </div>
     </form>
