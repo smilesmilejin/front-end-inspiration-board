@@ -139,7 +139,13 @@ function App() {
       <NewBoardForm onPostBoard={postBoard}/>
       {selectedBoard && (
       <>
-        <h2>Cards for Selected Board</h2>
+        <Board
+          id={selectedBoard.id}
+          title={selectedBoard.title}
+          owner={selectedBoard.owner}
+          cards={selectedBoard.cards}
+          onBoardClick={changeCurrentBoard}
+        />
         <CardList cards={selectedBoard.cards || []} />
       </>
     )}
