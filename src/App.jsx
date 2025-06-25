@@ -80,8 +80,12 @@ function App() {
 
   // getting all the boards from db and rendering them once on loading the page with UseEffect
   const getAllBoards = () => {
-    return getAllBoardsApi()
-      .then(boards => setBoardData(boards));
+    return getAllBoardsApi().then((boards) => {
+      setBoardData(boards);
+      if (boards.length > 0) {
+        setCurrentBoardId(boards[0].id);
+      }
+    });
   };
   
   useEffect (()=> {
