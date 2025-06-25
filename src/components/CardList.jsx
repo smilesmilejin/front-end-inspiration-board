@@ -6,19 +6,18 @@ const CardList = ({ cards, onLike, onDelete }) => {
   const getCardListJSX = (cards) => {
     return cards.map((card) => {
       return (
-        <div key={card.id}>
-          <Card
-            id={card.id}
-            message={card.message}
-            likes_count={card.likes_count}
-            onLike={onLike}
-            onDelete={onDelete}
-          />
-        </div>
+        <Card
+          key={card.id}
+          id={card.id}
+          message={card.message}
+          likes_count={card.likes_count}
+          onLike={onLike}
+          onDelete={onDelete}
+        />
       );
     });
   };
-  return <div>{getCardListJSX(cards)}</div>;
+  return <ul>{getCardListJSX(cards)}</ul>;
 };
 
 

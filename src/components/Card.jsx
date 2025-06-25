@@ -12,11 +12,11 @@ const Card = ({ id, message, likes_count, onLike, onDelete }) => {
   };
 
   return (
-    <div>
-      <div><button onClick={handleDelete}>❌</button></div>
+    <li>
+      <button onClick={handleDelete}>❌</button>
       <div>{message}</div>
       <div>{likes_count}<button onClick={handleLike}>❤️</button></div>
-    </div>
+    </li>
   );
 };
 
