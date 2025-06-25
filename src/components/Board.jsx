@@ -14,8 +14,8 @@ const Board = ({ id, title, owner, cards }) => {
 Board.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
-  cards: PropTypes.string.isRequired,
+  owner: PropTypes.string.isRequired,
+  cards: PropTypes.array.isRequired,
 };
 
 export default Board;

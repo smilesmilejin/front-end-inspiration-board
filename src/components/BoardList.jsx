@@ -2,22 +2,22 @@ import PropTypes from 'prop-types';
 import Board from './Board.jsx';
 // import './BoardList.css';
 
-const BoardList = ({ boards, ...Board, ... }) => {
+const BoardList = ({ boards }) => {
   const getBoardListJSX = (boards) => {
     return boards.map((board) => {
       return (
-        <div>
+        <div key={board.id}>
           <Board
-            key={board.id}
             id={board.id}
             title={board.title}
-            author={board.author}
+            owner={board.owner}
             cards={board.cards}
           />
         </div>
       );
     });
   };
+
   return <div>{getBoardListJSX(boards)}</div>;
 };
 
@@ -27,8 +27,8 @@ BoardList.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
-      author: PropTypes.string.isRequired,
-      cards: PropTypes.string.isRequired,
+      owner: PropTypes.string.isRequired,
+      cards: PropTypes.array.isRequired,
     })
   ).isRequired,
 };

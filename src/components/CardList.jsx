@@ -2,13 +2,12 @@ import PropTypes from 'prop-types';
 import Card from './Card.jsx';
 // import './CardList.css';
 
-const CardList = ({ cards, ...Card, ... }) => {
-  const getcardListJSX = (cards) => {
+const CardList = ({ cards }) => {
+  const getCardListJSX = (cards) => {
     return cards.map((card) => {
       return (
-        <div>
+        <div key={card.id}>
           <Card
-            key={card.id}
             id={card.id}
             message={card.message}
             likes_count={card.likes_count}
@@ -17,16 +16,16 @@ const CardList = ({ cards, ...Card, ... }) => {
       );
     });
   };
-  return <div>{getcardListJSX(cards)}</div>;
+  return <div>{getCardListJSX(cards)}</div>;
 };
 
 
-BoardList.propTypes = {
+CardList.propTypes = {
   cards: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       message: PropTypes.string.isRequired,
-      likes_count: PropTypes.number.isRequired,
+      likes_count: PropTypes.number.isRequired
     })
   ).isRequired,
 };
