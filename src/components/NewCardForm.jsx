@@ -1,4 +1,6 @@
 import {useState} from 'react';
+import PropTypes from 'prop-types';
+
 
 const kDefaultFormState = {
     message:'',
@@ -91,5 +93,8 @@ const NewCardForm = ({onPostCard}) => {
   );
 }
 
+NewCardForm.propTypes = {
+  onPostCard: PropTypes.func.isRequired,
+};
 
 export default NewCardForm;
