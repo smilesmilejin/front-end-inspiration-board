@@ -1,4 +1,6 @@
 import {useState} from 'react';
+import PropTypes from 'prop-types';
+
 
 const kDefaultFormState = {
     title:'',
@@ -89,5 +91,8 @@ const NewBoardForm = ({onPostBoard}) => {
   );
 }
 
+NewBoardForm.propTypes = {
+  onPostBoard: PropTypes.func.isRequired,
+};
 
 export default NewBoardForm;
