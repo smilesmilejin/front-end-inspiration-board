@@ -62,6 +62,12 @@ const postCardApi = (board_id, newCardData) => {
       });
 };
 
+const likeCardApi = (cardId) => {
+  return axios.patch(`${kBaseUrl}/cards/${cardId}/like`)
+    .then(response => response.data)
+    .catch(error => console.log(error));
+};
+
 // testing purpose, need to think set up state for board_id
 // const board_id = 3;
 
@@ -135,6 +141,21 @@ function App() {
     });
   };
 
+  const likeCard = (cardId) => {
+    likeCardApi(cardId).then((updatedCard) => {
+      setBoardData((prevBoards) => {
+        return prevBoards.map((board) => {
+          if (board.id === currentBoardId) {
+            const updatedCards = board.cards.map((card) =>
+              card.id === cardId ? updatedCard : card
+            );
+            return { ...board, cards: updatedCards };
+          }
+          return board;
+        });
+      });
+    });
+  };
 
   return (
     <>
@@ -150,7 +171,7 @@ function App() {
           onBoardClick={changeCurrentBoard}
         />
         <NewCardForm onPostCard={postCard}/>
-        <CardList cards={selectedBoard.cards || []} />
+        <CardList cards={selectedBoard.cards || []} onLike={likeCard} />
       </>
     )}
       
