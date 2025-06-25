@@ -71,6 +71,7 @@ function App() {
   const [boardData, setBoardData] = useState([]);
   // const [boardData, setBoardData] = useState(kBoardData);
   const [currentBoardId, setCurrentBoardId] = useState(null);
+  const selectedBoard = boardData.find((board) => board.id == currentBoardId);
 
   const changeCurrentBoard = (board_id) => {
     console.log('Selected Board Id is:', board_id);
@@ -134,9 +135,14 @@ function App() {
   return (
     <>
       {/* <Board></Board>      */}
-      {/* <CardList></CardList> */}
       <BoardList boards={boardData} onBoardClick={changeCurrentBoard}/>
       <NewBoardForm onPostBoard={postBoard}/>
+      {selectedBoard && (
+      <>
+        <h2>Cards for Selected Board</h2>
+        <CardList cards={selectedBoard.cards || []} />
+      </>
+    )}
       {/* <NewCardForm onPostCard={postCard}/> */}
     </>
   )
