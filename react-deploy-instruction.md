@@ -58,3 +58,12 @@ Pushes them to a special branch: gh-pages
 GitHub uses this branch to serve your website at:
 
 ## 6. use gh-pages branch for deploy in Github Pages
+
+## This only works for Chrome, not Safari.
+
+Your React app on GitHub Pages is trying to fetch from http://localhost:5000 (an insecure HTTP URL on the local machine).
+Safari blocks this request because:
+It enforces stricter mixed content policies (HTTPS page requesting HTTP resource).
+It blocks insecure requests to localhost from an HTTPS site.
+Chrome might be more lenient or cached older requests, so it seems to “work” there but not Safari.
+Other browsers like Firefox can also block these requests.
