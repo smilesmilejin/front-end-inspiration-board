@@ -1,109 +1,108 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
-import '../styles/NewCardForm.css'
+import '../styles/NewCardForm.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import {faMinus as minusSign} from '@fortawesome/free-solid-svg-icons';
 import { faMinus as minusSign, faPlus as plusSign } from '@fortawesome/free-solid-svg-icons';
 
 const kDefaultFormState = {
-    message:'',
+  message: '',
 };
-
 
 const kErrorState = {
-    message:'Message cannot be empty',
+  message: 'Message cannot be empty',
 };
 
 
-const NewCardForm = ({onPostCard}) => {
-    const[formData, setFormData] = useState(kDefaultFormState);
-    const [errors, setErrors] = useState(kErrorState);
-    const [formVisible, setFormVisible] = useState(true);
+const NewCardForm = ({ onPostCard }) => {
+  const [formData, setFormData] = useState(kDefaultFormState);
+  const [errors, setErrors] = useState(kErrorState);
 
-    const handleSubmit = (event) => {
-        console.log('submitted!');
+  const [formVisible, setFormVisible] = useState(true); 
 
-        event.preventDefault();
-        
-        const trimmedMessage = formData.message.trim();
+  const handleSubmit = (event) => {
+    console.log('submitted!');
 
-        // trim the title and owner before posting
-        console.log("Posting:", { message: trimmedMessage});
-        onPostCard({ message: trimmedMessage});
+    event.preventDefault();
+    
+    const trimmedMessage = formData.message.trim();
 
-        setFormData(kDefaultFormState);
+    // trim the title and owner before posting
+    console.log("Posting:", { message: trimmedMessage});
+    onPostCard({ message: trimmedMessage});
 
-        setErrors(kErrorState);
+    setFormData(kDefaultFormState);
+    setErrors(kErrorState);
+  };
 
+  const handleChange = (event) => {
+    const inputName = event.target.name;
+    const inputValue = event.target.value;
 
-    };
+    setFormData(formData => {
+        return {...formData, [inputName]: inputValue};
+    });
 
-    const handleChange = (event) => {
-        const inputName = event.target.name;
-        const inputValue = event.target.value;
+    const trimmedLength = inputValue.trim().length;
 
-        setFormData(formData => {
-            return {...formData, [inputName]: inputValue};
-        });
+    if (trimmedLength === 0) {
+      setErrors((prev) => ({
+        ...prev,
+        [inputName]: 'Message cannot be empty',
+      }));
+    } else if (trimmedLength > 40) {
 
-        const trimmedLength = inputValue.trim().length;
+      setErrors((prev) => ({
+        ...prev,
+        [inputName]: 'Message cannot exceed 40 characters',
+      }));
+    } else {
+      setErrors((prev) => ({
+        ...prev,
+        [inputName]: null, // no error
+      }));
+    }
+  };
 
-        if (trimmedLength === 0) {
-            setErrors((prev) => ({
-                ...prev,
-                [inputName]: 'Message cannot be empty',
-            }));
-            } else if (trimmedLength > 40) {
-            setErrors((prev) => ({
-                ...prev,
-                [inputName]: 'Message cannot exceed 40 characters',
-            }));
-            } else {
-            setErrors((prev) => ({
-                ...prev,
-                [inputName]: null, // no error
-            }));
-        }
-    };
-
-    const makeControlledInput = (inputName) => {
-        return (
-            <>
-                <input
-                    onChange={handleChange}
-                    type='text'
-                    id={`input-${inputName}`}
-                    name={inputName}
-                    value={formData[inputName]}
-                    placeholder={inputName}
-                />
-              
-
-            </>
-        );
-    };
+  const makeControlledInput = (inputName) => {
+    return (
+      <>
+        <input
+          onChange={handleChange}
+          type='text'
+          id={`input-${inputName}`}
+          name={inputName}
+          value={formData[inputName]}
+          placeholder={inputName}
+        />
+      </>
+    );
+  };
 
     return (
-    <form className='card-form'onSubmit={handleSubmit}>
-         <div className='form-header'>New Card
-         {/* <div><FontAwesomeIcon icon={minusSign} /></div> */}
-         <div><FontAwesomeIcon icon={formVisible ? minusSign : plusSign} onClick={() => setFormVisible(!formVisible)}/></div>
-         </div>
-       
+      <form className='card-form' onSubmit={handleSubmit}>
+        <div className='form-header'>
+          New Card
+          {/* <div><FontAwesomeIcon icon={minusSign} /></div> */}
+          <div><FontAwesomeIcon icon={formVisible ? minusSign : plusSign} onClick={() => setFormVisible(!formVisible)}/></div>
+        </div>
+
       {formVisible && (
         <>
-      <div className='form-field'>
-        {makeControlledInput('message')}
-      </div>
-      {(errors.message) &&
-      <div className='form-errors'>
-        <p className='error-text'>{errors.message}</p></div>}
-      <div className="button-wrapper">
-        <button disabled={errors.message}>CREATE</button>
-      </div>
-      </>
+          <div className='form-field'>
+            {makeControlledInput('message')}
+          </div>
+          {errors.message && (
+            <div className='form-errors'>
+                <p className='error-text'>{errors.message}</p>
+            </div>
+          )}
+          <div className="button-wrapper">
+            <button disabled={errors.message}>CREATE</button>
+          </div>
+        </>
       )}
-    </form>
+      </form>
   );
 }
 
