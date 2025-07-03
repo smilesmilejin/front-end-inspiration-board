@@ -2,7 +2,8 @@ import {useState} from 'react';
 import PropTypes from 'prop-types';
 import "../styles/NewBoardForm.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faMinus as minusSign} from '@fortawesome/free-solid-svg-icons';
+// import {faMinus as minusSign} from '@fortawesome/free-solid-svg-icons';
+import { faMinus as minusSign, faPlus as plusSign } from '@fortawesome/free-solid-svg-icons';
 
 const kDefaultFormState = {
     title:'',
@@ -18,6 +19,7 @@ const kErrorState = {
 const NewBoardForm = ({onPostBoard}) => {
     const[formData, setFormData] = useState(kDefaultFormState);
     const [errors, setErrors] = useState(kErrorState);
+    const [formVisible, setFormVisible] = useState(true);
 
     const handleSubmit = (event) => {
         console.log('submitted!');
@@ -81,8 +83,11 @@ const NewBoardForm = ({onPostBoard}) => {
     return (
     <form className='board-form' onSubmit={handleSubmit}>
         <div className='form-header'>New Board
-        <div><FontAwesomeIcon icon={minusSign} /></div>
+        {/* <div><FontAwesomeIcon icon={minusSign} /></div> */}
+        <FontAwesomeIcon icon={formVisible ? minusSign : plusSign} onClick={() => setFormVisible(!formVisible)}/>
         </div>
+        {formVisible && (
+          <>
       <div className='form-field'>
         {makeControlledInput('title')}
       </div>
@@ -102,6 +107,8 @@ const NewBoardForm = ({onPostBoard}) => {
       <div className="button-wrapper">
         <button disabled={errors.title || errors.owner}>CREATE</button>
       </div>
+      </>
+    )}
     </form>
   );
 }
