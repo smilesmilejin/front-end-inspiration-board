@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
-// import './Board.css';
+import '../styles/Board.css';
 
-const Board = ({ id, title, owner, onBoardClick }) => {
+const Board = ({ id, title, owner, onBoardClick,color }) => {
   const handleClick = () => {
     onBoardClick(id);
   };
 
   return (
-    <li onClick={handleClick}>
-      <p>{title}</p>
-      <p>{owner}</p>
+    <li onClick={handleClick} style={{backgroundColor:color}}>
+      <p className='board-title'>{title}</p>
+      <p className='board-owner-2'>{owner}</p>
     </li>
   );
 };

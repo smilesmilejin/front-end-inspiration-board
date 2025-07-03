@@ -25,15 +25,15 @@ const getAllBoardsApi = () => {
 };
 
 // get specific board from database
-const getOneBoardApi = (boardId) => {
-  return axios.get(`${kBaseUrl}/boards/${boardId}`) 
-    .then(response => { 
-      return response.data['board'];
-    })
-    .catch (error => {
-      console.log(error);
-    });
-};
+// const getOneBoardApi = (boardId) => {
+//   return axios.get(`${kBaseUrl}/boards/${boardId}`) 
+//     .then(response => { 
+//       return response.data['board'];
+//     })
+//     .catch (error => {
+//       console.log(error);
+//     });
+// };
 
 // post new board to the database
 const postBoardApi = (newBoardData) => {
@@ -175,23 +175,41 @@ function App() {
 
   return (
     <>
-      <BoardList boards={boardData} onBoardClick={changeCurrentBoard}/>
-      <NewBoardForm onPostBoard={postBoard}/>
+  <div className="app-container">
+     
+
+      <main>
       {selectedBoard && (
-      <>
-        <Board
-          id={selectedBoard.id}
-          title={selectedBoard.title}
-          owner={selectedBoard.owner}
-          cards={selectedBoard.cards}
-          onBoardClick={changeCurrentBoard}
-        />
-        <NewCardForm onPostCard={postCard}/>
-        <CardList cards={selectedBoard.cards || []} onLike={likeCard} onDelete={deleteCard}/>
-      </>
-    )}
-      
-    </>
+  <header className="board-header">
+    <span className="board-owner">{selectedBoard.owner}</span>
+    <h1>{selectedBoard.title}</h1>
+  </header>
+)}
+        <BoardList boards={boardData} onBoardClick={changeCurrentBoard} />
+        <NewBoardForm onPostBoard={postBoard} />
+
+        {selectedBoard && (
+          <>
+            {/* <Board
+              id={selectedBoard.id}
+              title={selectedBoard.title}
+              owner={selectedBoard.owner}
+              cards={selectedBoard.cards}
+              onBoardClick={changeCurrentBoard}
+            /> */}
+            <div className='mood-board'>
+            <NewCardForm onPostCard={postCard} />
+            <CardList
+              cards={selectedBoard.cards || []}
+              onLike={likeCard}
+              onDelete={deleteCard}
+            />
+            </div>
+          </>
+        )}
+      </main>
+    </div>
+  </>
   )
 };
 

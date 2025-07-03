@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+form {
+    background-color: white;
+    border-radius: 16px 16px 0px 0px;
+    border: 3px solid #18191f;
+    padding: 10px 0px 25px 0px;
+    max-width: 375px;
+    width: 100%; /* responsive */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+    margin: 0 auto; /* center form horizontally */
+  }
+  .form-field{
+    height: 70px;
+  }
+
+  .form-header {
+    padding: 0 1px 5px 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #18191f;
+    font-weight:bolder;
+    font-size: 1rem;
+    box-sizing: border-box;
+    word-spacing: 2px;
+
+  }
+  
+  input#input-title, #input-owner{
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1.5px solid #18191f;
+    padding: 5px 10px 2rem;
+    margin: 20px  10px 0px 30px;
+    width: calc(100% - 60px); /* compensate for horizontal margin */
+    box-sizing: border-box;
+    font-size: 1rem;
+    color: #18191f
+  }
+
+
+.button-wrapper{
+    display: flex;
+    justify-content: center; 
+    margin-top: 30px;
+    
+}
+  .button-wrapper button{
+    border-radius: 10px;
+    background-color: #ffb012;
+  border-style: solid;
+  border-color: var(--colors-black, #18191f);
+  border-width: 2px;
+  padding: 10px 10px 10px 16px;
+  display: flex;
+  flex-direction: column;
+  min-width: 160px;
+  justify-content: flex-start;
+  width:  calc(100% - 180px); 
+  height: 40px;
+  position: relative;
+  box-shadow: var(--shadow-400-box-shadow, 0px 4px 0px 0px rgba(24, 25, 31, 1));
+  overflow: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  font-size:medium
+  }
+
+  .error-text {
+    color: red;
+    font-size: 0.8rem;
+    margin-left: 30px;
+    transition: opacity 0.2s ease;
+    z-index: 2;
+  }

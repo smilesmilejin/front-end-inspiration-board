@@ -1,10 +1,113 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i|Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i|Work+Sans:100,200,300,400,500,600,700,800,900&display=swap');
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+  background-color: black;
+  /* text-align: center; */
+  /* display: grid; */
+  /* grid-template-columns: repeat(3, 1fr); */
+
+}
+html, body, #root {
+  height: 95%;
+  margin: 0;
+  padding: 0;
 }
 
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr auto;
+  gap: 2rem;
+  margin-top: 100px; /* below fixed header */
+  height: 100%
+}
+
+main > :nth-child(1) { /* header */
+  grid-column: 1;
+  grid-row: 1;
+  /* overflow-y: auto; */
+
+  
+}main > :nth-child(2) { /* board list */
+ 
+  grid-column: 1;
+  grid-row: 2;
+  overflow-y: auto
+  
+}
+main >:nth-child(3){ /* new board form*/
+  grid-column: 1;
+  grid-row: 3;
+  
+  overflow-y: auto
+}
+
+
+main > :nth-child(4) {
+  grid-column: 2;
+  grid-row: 1 / span 3; /* spans full height */
+  height: 95%;
+}
+.mood-board {
+  background-color: #d9d9d9;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 100px;
+  height: 100%;  
+  justify-content: space-around;
+       /* <-- Important: fill the main grid cell vertically */
+  /* box-sizing: border-box; */
+}
+
+
+
+
+.app-container {
+  margin: auto;
+  height: 100%;
+ /* padding-bottom:100px; */
+  /* grid-template-columns: 1fr 1fr;  */
+  /* grid-template-rows: auto auto auto; */
+  /* gap: 1rem;  */
+}
+
+.board-header {
+  /* position: fixed; Stick to the top */
+  top: 10%;
+  margin-left: 10%;
+  width: 100%;
+  /* background-color: rgb(0, 0, 0); */
+  
+  /* z-index: 100; */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.board-header h1 {
+  margin: 0;
+  font-size: 3.8rem;
+  text-align: left;
+  color: white;
+}
+
+.board-owner {
+  text-align: left;
+  font-weight:light;
+  font-size: .8rem;
+  /* line-height: ; */
+  color: #fefefe;
+  
+}
+/* 
+.board-owner span{
+
+} */
+
+/* Optional: add spacing below the fixed header */
+
+/* 
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -31,7 +134,7 @@
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
-}
+} */
 
 .card {
   padding: 2em;

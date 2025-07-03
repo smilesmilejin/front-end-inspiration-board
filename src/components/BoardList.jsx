@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import Board from './Board.jsx';
-// import './BoardList.css';
+import '../styles/BoardList.css';
 
 const BoardList = ({ boards, onBoardClick}) => {
+  const pastelColors = ['#FFD464', '#FFC7DE', '#FFFFFF', '#A8FFD3'];
   const getBoardListJSX = (boards) => {
-    return boards.map((board) => {
+    return boards.map((board,index) => {
+      const color = pastelColors[index % pastelColors.length];
       return (
         <Board
           key={board.id}
@@ -13,6 +15,7 @@ const BoardList = ({ boards, onBoardClick}) => {
           owner={board.owner}
           cards={board.cards}
           onBoardClick={onBoardClick}
+          color={color}
         />
       );
     });

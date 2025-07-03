@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import PropTypes from 'prop-types';
+import "../styles/NewBoardForm.css"
 
 
 const kDefaultFormState = {
@@ -66,11 +67,11 @@ const NewBoardForm = ({onPostBoard}) => {
                     value={formData[inputName]}
                     placeholder={inputName}
                 />
-                {errors[inputName] && (
+                {/* {errors[inputName] && (
                     <p className="error-text">
                         {`${inputName.charAt(0).toUpperCase() + inputName.slice(1)} can not be empty`}
                     </p>
-                )}
+                )} */}
 
             </>
         );
@@ -78,14 +79,25 @@ const NewBoardForm = ({onPostBoard}) => {
 
     return (
     <form onSubmit={handleSubmit}>
-      <div>
+        <div className='form-header'>New Board</div>
+      <div className='form-field'>
         {makeControlledInput('title')}
       </div>
-      <div className = 'form-field'>
+      <div className = 'form-field' >
         {makeControlledInput('owner')}
       </div>
+      {(errors.title || errors.owner) && (
+    <div className="form-errors">
+      {errors.title && (
+        <p className="error-text">Title cannot be empty</p>
+      )}
+      {errors.owner && (
+        <p className="error-text">Owner cannot be empty</p>
+      )}
+    </div>
+  )}
       <div className="button-wrapper">
-        <button disabled={errors.title || errors.owner}>Create</button>
+        <button disabled={errors.title || errors.owner}>CREATE</button>
       </div>
     </form>
   );
