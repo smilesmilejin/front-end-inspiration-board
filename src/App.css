@@ -70,6 +70,7 @@ main > :nth-child(4) {
   border: 2px solid #18191f;
   border-radius: 10px;
   box-shadow: 2px 3px 0 rgba(0, 0, 0, 0.1);
+  min-width: 300px;
 }
 
 .mood-board {
