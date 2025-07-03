@@ -231,16 +231,7 @@ function App() {
             /> */}
             <div className='mood-board'>
 
-            <NewCardForm onPostCard={postCard} />
-
-            <CardList
-              // cards={selectedBoard.cards || []}
-              cards={getSortedCards()}
-              onLike={likeCard}
-              onDelete={deleteCard}
-            />
-
-            <div>
+            <div className='sort-select'>
               <label htmlFor="sort">Sort cards by: </label>
               <select id="sort" value={sortType} onChange={(e) => setSortType(e.target.value)}>
                 <option value="id-asc">ID ↑ (ascending)</option>
@@ -251,6 +242,15 @@ function App() {
                 <option value="message-desc">Message Z-A</option>
               </select>
             </div>
+
+            <CardList
+              // cards={selectedBoard.cards || []}
+              cards={getSortedCards()}
+              onLike={likeCard}
+              onDelete={deleteCard}
+            />
+<NewCardForm onPostCard={postCard} />
+           
 
             </div>
           </>

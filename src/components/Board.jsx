@@ -7,7 +7,7 @@ const Board = ({ id, title, owner, onBoardClick,color }) => {
   };
 
   return (
-    <li onClick={handleClick} style={{backgroundColor:color}}>
+    <li className="board"onClick={handleClick} style={{backgroundColor:color}}>
       <p className='board-title'>{title}</p>
       <p className='board-owner-2'>{owner}</p>
     </li>

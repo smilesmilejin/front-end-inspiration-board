@@ -1,5 +1,8 @@
 import {useState} from 'react';
 import PropTypes from 'prop-types';
+import '../styles/NewCardForm.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faMinus as minusSign} from '@fortawesome/free-solid-svg-icons';
 
 
 const kDefaultFormState = {
@@ -73,21 +76,27 @@ const NewCardForm = ({onPostCard}) => {
                     value={formData[inputName]}
                     placeholder={inputName}
                 />
-                {errors[inputName] && (
-                    <p>{errors[inputName]}</p>
-                )}
+              
 
             </>
         );
     };
 
     return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <form className='card-form'onSubmit={handleSubmit}>
+         <div className='form-header'>New Card
+         <div><FontAwesomeIcon icon={minusSign} /></div>
+         </div>
+       
+         
+      <div className='form-field'>
         {makeControlledInput('message')}
       </div>
+      {(errors.message) &&
+      <div className='form-errors'>
+        <p className='error-text'>{errors.message}</p></div>}
       <div className="button-wrapper">
-        <button disabled={errors.message}>Create</button>
+        <button disabled={errors.message}>CREATE</button>
       </div>
     </form>
   );

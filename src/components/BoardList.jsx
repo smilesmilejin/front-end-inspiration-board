@@ -21,7 +21,7 @@ const BoardList = ({ boards, onBoardClick}) => {
     });
   };
 
-  return <ul>{getBoardListJSX(boards)}</ul>;
+  return <ul className='board-list'>{getBoardListJSX(boards)}</ul>;
 };
 
 

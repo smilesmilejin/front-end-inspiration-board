@@ -1,9 +1,22 @@
 
 import PropTypes from 'prop-types';
+import {useState, useEffect} from 'react';
 import '../styles/Card.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons';
 
 const Card = ({ id, message, likes_count, onLike, onDelete, color }) => {
+  const [liked, setLiked] = useState(false);
+
+  useEffect(() => {
+    if (likes_count > 0) {
+      setLiked(true);
+    }
+  }, [likes_count]);
+
   const handleLike = () => {
+    if (!liked) setLiked(true);
     onLike(id);
   };
 
@@ -13,9 +26,17 @@ const Card = ({ id, message, likes_count, onLike, onDelete, color }) => {
 
   return (
     <li className='card' style={{backgroundColor: color}}>
-      <button onClick={handleDelete}>❌</button>
+      <button className='delete-card' onClick={handleDelete}>×</button>
       <div>{message}</div>
-      <div>{likes_count}<button onClick={handleLike}>❤️</button></div>
+      <div className="like-card">
+    <span className="like-count">{likes_count}</span>
+    <button
+      className={`like-button ${liked ? 'liked' : ''}`}
+      onClick={handleLike}
+    >
+       <FontAwesomeIcon icon={liked ? solidHeart : regularHeart} />
+    </button>
+  </div>
     </li>
   );
 };

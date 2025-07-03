@@ -1,28 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-.board-form{
+form.card-form {
     background-color: white;
     border-radius: 16px 16px 0px 0px;
     border: 3px solid #18191f;
     padding: 10px 0px 25px 0px;
     max-width: 375px;
-    width: 100%; /* responsive */
+    min-width: 300px; /* 👈 prevent squish */
+    width: 100%; 
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: stretch;
     box-sizing: border-box;
     font-family: "Montserrat", sans-serif;
-    margin: 0 auto 10px; 
+    margin: 0 auto; 
   }
- 
+  .form-field{
+    height: 70px;
+  }
 
   .form-header {
-    /* padding: 0 5px 5px 10px; */
+    padding: 0 10px 5px 10px;
     margin-bottom: 10px;
     width: 100%;
     display: flex;
-    /* align-items:center; */
-    justify-content: space-between;
+    align-items: center;
     border-bottom: 2px solid #18191f;
     font-weight:bolder;
     font-size: 1rem;
@@ -31,7 +33,7 @@
 
   }
   
-  input#input-title, #input-owner{
+  input#input-message{
     background: #ffffff;
     border-radius: 8px;
     border: 1.5px solid #18191f;
@@ -51,6 +53,7 @@
     
 }
   .button-wrapper button{
+    cursor: pointer;
     border-radius: 10px;
     background-color: #ffb012;
   border-style: solid;

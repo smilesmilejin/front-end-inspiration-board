@@ -1,7 +1,8 @@
 import {useState} from 'react';
 import PropTypes from 'prop-types';
 import "../styles/NewBoardForm.css"
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {faMinus as minusSign} from '@fortawesome/free-solid-svg-icons';
 
 const kDefaultFormState = {
     title:'',
@@ -78,8 +79,10 @@ const NewBoardForm = ({onPostBoard}) => {
     };
 
     return (
-    <form onSubmit={handleSubmit}>
-        <div className='form-header'>New Board</div>
+    <form className='board-form' onSubmit={handleSubmit}>
+        <div className='form-header'>New Board
+        <div><FontAwesomeIcon icon={minusSign} /></div>
+        </div>
       <div className='form-field'>
         {makeControlledInput('title')}
       </div>

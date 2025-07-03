@@ -1,5 +1,5 @@
-ul{
-    display: flex;
+ul.board-list{
+   
    align-content:space-around;
    gap: 25px;
    width: calc(200px * 3 + 50px); /* 3 cards + gaps */
@@ -12,7 +12,7 @@ ul{
 
   
 }
-li{
+li.board{
 
     /* min-width: 200px;  */
     /* flex: 0 0 auto;    */
