@@ -2,8 +2,8 @@ import {useState} from 'react';
 import PropTypes from 'prop-types';
 import '../styles/NewCardForm.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faMinus as minusSign} from '@fortawesome/free-solid-svg-icons';
-
+// import {faMinus as minusSign} from '@fortawesome/free-solid-svg-icons';
+import { faMinus as minusSign, faPlus as plusSign } from '@fortawesome/free-solid-svg-icons';
 
 const kDefaultFormState = {
     message:'',
@@ -18,6 +18,7 @@ const kErrorState = {
 const NewCardForm = ({onPostCard}) => {
     const[formData, setFormData] = useState(kDefaultFormState);
     const [errors, setErrors] = useState(kErrorState);
+    const [formVisible, setFormVisible] = useState(true);
 
     const handleSubmit = (event) => {
         console.log('submitted!');
@@ -85,10 +86,12 @@ const NewCardForm = ({onPostCard}) => {
     return (
     <form className='card-form'onSubmit={handleSubmit}>
          <div className='form-header'>New Card
-         <div><FontAwesomeIcon icon={minusSign} /></div>
+         {/* <div><FontAwesomeIcon icon={minusSign} /></div> */}
+         <div><FontAwesomeIcon icon={formVisible ? minusSign : plusSign} onClick={() => setFormVisible(!formVisible)}/></div>
          </div>
        
-         
+      {formVisible && (
+        <>
       <div className='form-field'>
         {makeControlledInput('message')}
       </div>
@@ -98,6 +101,8 @@ const NewCardForm = ({onPostCard}) => {
       <div className="button-wrapper">
         <button disabled={errors.message}>CREATE</button>
       </div>
+      </>
+      )}
     </form>
   );
 }
