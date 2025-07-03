@@ -80,6 +80,7 @@ function App() {
   const [boardData, setBoardData] = useState([]);
   const [currentBoardId, setCurrentBoardId] = useState(null);
   const selectedBoard = boardData.find((board) => board.id == currentBoardId);
+  const [sortType, setSortType] = useState("id-asc"); // default sort by id in ascending
 
   const changeCurrentBoard = (board_id) => {
     console.log('Selected Board Id is:', board_id);
@@ -173,6 +174,37 @@ function App() {
     });
   };
 
+  const getSortedCards = () => {
+    if (!selectedBoard?.cards) return [];
+
+    const sorted = [...selectedBoard.cards];
+
+    switch (sortType) {
+      case "id-asc":
+        sorted.sort((a, b) => a.id - b.id);
+        break;
+      case "id-desc":
+        sorted.sort((a, b) => b.id - a.id);
+        break;
+      case "likes-asc":
+        sorted.sort((a, b) => a.likes_count - b.likes_count);
+        break;
+      case "likes-desc":
+        sorted.sort((a, b) => b.likes_count - a.likes_count);
+        break;
+      case "message-asc":
+        sorted.sort((a, b) => a.message.localeCompare(b.message));
+        break;
+      case "message-desc":
+        sorted.sort((a, b) => b.message.localeCompare(a.message));
+        break;
+      default:
+        break;
+    }
+
+    return sorted;
+  };
+
   return (
     <>
   <div className="app-container">
@@ -198,12 +230,28 @@ function App() {
               onBoardClick={changeCurrentBoard}
             /> */}
             <div className='mood-board'>
+
             <NewCardForm onPostCard={postCard} />
+
             <CardList
-              cards={selectedBoard.cards || []}
+              // cards={selectedBoard.cards || []}
+              cards={getSortedCards()}
               onLike={likeCard}
               onDelete={deleteCard}
             />
+
+            <div>
+              <label htmlFor="sort">Sort cards by: </label>
+              <select id="sort" value={sortType} onChange={(e) => setSortType(e.target.value)}>
+                <option value="id-asc">ID ↑ (ascending)</option>
+                <option value="id-desc">ID ↓ (descending)</option>
+                <option value="likes-asc">Likes ↑ (ascending)</option>
+                <option value="likes-desc">Likes ↓ (descending)</option>
+                <option value="message-asc">Message A-Z</option>
+                <option value="message-desc">Message Z-A</option>
+              </select>
+            </div>
+
             </div>
           </>
         )}
