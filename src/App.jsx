@@ -85,7 +85,7 @@ function App() {
   const changeCurrentBoard = (board_id) => {
     console.log('Selected Board Id is:', board_id);
     setCurrentBoardId(board_id);
-};
+  };
 
   // getting all the boards from db and rendering them once on loading the page with UseEffect
   const getAllBoards = () => {
@@ -207,16 +207,15 @@ function App() {
 
   return (
     <>
-  <div className="app-container">
-     
-
+      <div className="app-container">
       <main>
-      {selectedBoard && (
-  <header className="board-header">
-    <span className="board-owner">{selectedBoard.owner}</span>
-    <h1>{selectedBoard.title}</h1>
-  </header>
-)}
+        {selectedBoard && (
+          <header className="board-header">
+            <span className="board-owner">{selectedBoard.owner}</span>
+            <h1>{selectedBoard.title}</h1>
+          </header>
+        )}
+        
         <BoardList boards={boardData} onBoardClick={changeCurrentBoard} />
         <NewBoardForm onPostBoard={postBoard} />
 
@@ -231,27 +230,26 @@ function App() {
             /> */}
             <div className='mood-board'>
 
-            <div className='sort-select'>
-              <label htmlFor="sort">Sort cards by: </label>
-              <select id="sort" value={sortType} onChange={(e) => setSortType(e.target.value)}>
-                <option value="id-asc">ID ↑ (ascending)</option>
-                <option value="id-desc">ID ↓ (descending)</option>
-                <option value="likes-asc">Likes ↑ (ascending)</option>
-                <option value="likes-desc">Likes ↓ (descending)</option>
-                <option value="message-asc">Message A-Z</option>
-                <option value="message-desc">Message Z-A</option>
-              </select>
-            </div>
+              <div className='sort-select'>
+                <label htmlFor="sort">Sort cards by: </label>
+                <select id="sort" value={sortType} onChange={(e) => setSortType(e.target.value)}>
+                  <option value="id-asc">ID ↑ (ascending)</option>
+                  <option value="id-desc">ID ↓ (descending)</option>
+                  <option value="likes-asc">Likes ↑ (ascending)</option>
+                  <option value="likes-desc">Likes ↓ (descending)</option>
+                  <option value="message-asc">Message A-Z</option>
+                  <option value="message-desc">Message Z-A</option>
+                </select>
+              </div>
 
-            <CardList
-              // cards={selectedBoard.cards || []}
-              cards={getSortedCards()}
-              onLike={likeCard}
-              onDelete={deleteCard}
-            />
-<NewCardForm onPostCard={postCard} />
-           
+              <CardList
+                // cards={selectedBoard.cards || []}
+                cards={getSortedCards()}
+                onLike={likeCard}
+                onDelete={deleteCard}
+              />
 
+              <NewCardForm onPostCard={postCard} />
             </div>
           </>
         )}
