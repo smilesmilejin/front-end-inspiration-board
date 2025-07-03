@@ -1,6 +1,5 @@
-
 import PropTypes from 'prop-types';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import '../styles/Card.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
@@ -25,18 +24,18 @@ const Card = ({ id, message, likes_count, onLike, onDelete, color }) => {
   };
 
   return (
-    <li className='card' style={{backgroundColor: color}}>
+    <li className='card' style={{ backgroundColor: color }}>
       <button className='delete-card' onClick={handleDelete}>×</button>
       <div>{message}</div>
       <div className="like-card">
-    <span className="like-count">{likes_count}</span>
-    <button
-      className={`like-button ${liked ? 'liked' : ''}`}
-      onClick={handleLike}
-    >
-       <FontAwesomeIcon icon={liked ? solidHeart : regularHeart} />
-    </button>
-  </div>
+        <span className="like-count">{likes_count}</span>
+        <button
+          className={`like-button ${liked ? 'liked' : ''}`}
+          onClick={handleLike}
+        >
+          <FontAwesomeIcon icon={liked ? solidHeart : regularHeart} />
+        </button>
+      </div>
     </li>
   );
 };
